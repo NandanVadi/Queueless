@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         String   @default("user")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  queueTokens  QueueToken[]
+  appointments Appointment[]
+
+  @@map("users")
+}
+
+model Service {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  icon        String
+  isActive    Boolean   @default(true) @map("is_active")
+
+  // Relationships
+  queueTokens  QueueToken[]
+  appointments Appointment[]
+
+  @@map("services")
+}
+
+model QueueToken {
+  id                Int      @id @default(autoincrement())
+  serviceId         Int      @map("service_id")
+  tokenNumber       Int      @map("token_number")
+  status            String
+  createdAt         DateTime @default(now()) @map("created_at")
+  estimatedWaitTime Int      @default(0) @map("estimated_wait_time")
+  isActive          Boolean  @default(true) @map("is_active")
+  userId            Int?     @map("user_id") // Nullable for legacy tokens
+
+  // Relationship back to Service. Restrict action prevents deleting a service
+  // that has historical queue tokens, satisfying the requirement to keep history safe.
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("queue_tokens")
+}
+
+model Appointment {
+  id              Int      @id @default(autoincrement())
+  serviceId       Int      @map("service_id")
+  customerName    String   @map("customer_name")
+  appointmentDate String   @map("appointment_date")
+  appointmentTime String   @map("appointment_time")
+  status          String
+  createdAt       DateTime @default(now()) @map("created_at")
+  userId          Int?     @map("user_id") // Nullable for legacy appointments
+
+  // Relationship back to Service. Restrict action prevents deleting a service
+  // that has historical appointments, satisfying the requirement to keep history safe.
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("appointments")
+}
