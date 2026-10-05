@@ -1,0 +1,9 @@
+# widgets/
+#
+# This folder will contain reusable UI widgets shared across screens.
+#
+# Planned widgets (to be added in later milestones):
+#   - queue_card.dart       → Card showing token number, position, wait time
+#   - service_tile.dart     → List tile for a service item
+#   - status_badge.dart     → Coloured badge for queue status (Waiting / Active / Done)
+#   - loading_overlay.dart  → Full-screen loading indicator for async DB operations

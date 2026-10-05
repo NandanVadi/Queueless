@@ -1,0 +1,12 @@
+# database/
+#
+# This folder will contain all SQLite / database-related code.
+#
+# Planned files (to be added in later milestones):
+#   - database_helper.dart
+#       → Singleton DatabaseHelper class using sqflite + path packages
+#       → openDatabase(), onCreate(), onUpgrade() (versioning & migration)
+#       → Shared insert(), query(), update(), delete() helpers
+#       → Transaction and batch support
+#
+# Nothing is implemented here yet — SQLite will be wired in the next milestone.

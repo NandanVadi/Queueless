@@ -1,0 +1,14 @@
+# models/
+#
+# This folder will contain Dart model classes for QueueLess entities.
+#
+# Planned models (to be added in later milestones):
+#   - queue_token.dart   → QueueToken model (toMap / fromMap for SQLite)
+#   - appointment.dart   → Appointment model
+#   - service.dart       → Service model (e.g. "Bank Counter", "Hospital OPD")
+#   - user.dart          → User model (basic profile)
+#
+# Each model will implement:
+#   - A named constructor
+#   - toMap()   → converts the object to a Map<String, dynamic> for SQLite
+#   - fromMap() → factory constructor that creates an object from a SQLite row

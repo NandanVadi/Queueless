@@ -1,0 +1,8 @@
+# utils/
+#
+# This folder will contain utility/helper code that is not UI or DB specific.
+#
+# Planned files (to be added in later milestones):
+#   - constants.dart      → App-wide constants (table names, column names, routes)
+#   - date_formatter.dart → Helpers for formatting DateTime objects
+#   - validators.dart     → Input validation functions (e.g. phone number, date)
